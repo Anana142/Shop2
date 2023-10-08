@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App3.EditProductPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="130" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="{Binding PhotoPath}" HeightRequest="120" WidthRequest="100" Grid.Row="0"/>
+
+            <Entry Text="{Binding Selected.Title}" Grid.Row="1" Grid.ColumnSpan="2" Placeholder="Название"/>
+            <Entry Text="{Binding Selected.Description}"  Grid.Row="2"  Grid.ColumnSpan="2" Placeholder="Описание"/>
+            <Entry Text="{Binding Selected.Price}" Grid.Row="3"  Grid.ColumnSpan="2" Placeholder="Цена"/>
+
+            <Picker ItemsSource="{Binding ListCatigories}" SelectedItem="{Binding SelectedCategory}"  HeightRequest="25" WidthRequest="200" Grid.Row="4"  x:Name="picker"  />
+
+            <Button Text="Сохранить" Clicked="Save" WidthRequest="100" Grid.Row="5" CornerRadius="5" BackgroundColor="#AED2FF" />
+            <Button Text="Добавить фото" Clicked="Photo" WidthRequest="100" Grid.Row="6" CornerRadius="5" BackgroundColor="#AED2FF" />
+            <Button Text="Назад" Clicked="Back" WidthRequest="100" Grid.Row="7" CornerRadius="5" BackgroundColor="Transparent" BorderColor="#AED2FF" BorderWidth="2"/>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

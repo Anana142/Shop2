@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local ="clr-namespace:App3"
+             x:Class="App3.MainPage">
+
+    <StackLayout>
+        <Grid HeightRequest="150">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="5"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Text="Shop" FontSize="55" Margin="10" TextColor="#4D2DB7" FontAttributes="Bold" Grid.RowSpan="3"  Grid.ColumnSpan="3"/>
+            <Button Text="Категории" Grid.Column="3" WidthRequest="50" Grid.Row="1" Clicked="OpenCategorirs" Grid.ColumnSpan="3" Background="#AED2FF" BorderWidth="1" BorderColor="#AED2FF" TextColor="#000"/>
+            <Button Text="+" Grid.Column="6" WidthRequest="50" Grid.Row="1" Clicked="Add" FontSize="15" Background="#AED2FF"  FontAttributes="Bold" BorderWidth="2" CornerRadius="25" TextColor="#000"/>
+        </Grid>
+
+        <Grid WidthRequest="200" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <CollectionView ItemsSource="{Binding ProductList}" WidthRequest="200" Grid.Column="0" SelectedItem = "{Binding SelectedProduct}"  SelectionMode="Single" Margin="10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Vertical" WidthRequest="200" Margin="10" >
+                            <Image Source="{Binding PathImage}" HeightRequest="120" WidthRequest="100"/>
+                            <Label Text="{Binding Title}" WidthRequest="200" FontSize="30" FontAttributes="Bold" TextColor="#4D2DB7"/>
+                            <Label Text="{Binding Category.Title}" WidthRequest="200" FontSize="20" TextColor="#4D2DB7" />
+                            <Label Text="{Binding Description}" WidthRequest="200" TextColor="#4D2DB7"/>
+                            <Label Text="{Binding Price}" FontAttributes="Bold" TextColor="#4D2DB7"/>
+                            <Button Clicked="Edit" Text="Изменить"  CornerRadius="5" BackgroundColor="Transparent" BorderColor="#AED2FF" BorderWidth="2"/>
+                            <Button Clicked="Delete" Text="Удалить"  CornerRadius="5" BackgroundColor="#AED2FF"/>
+
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </StackLayout>
+
+
+</ContentPage>
