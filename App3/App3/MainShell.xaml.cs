@@ -15,11 +15,17 @@ namespace App3
         public MainShell()
         {
             InitializeComponent();
+          //  Routing.RegisterRoute("Registration", typeof(Registration));
         }
 
         private void AddProductPage(object sender, EventArgs e)
         {
 
+        }
+
+        private async void ToRegistration(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("//Registration");
         }
     }
 }

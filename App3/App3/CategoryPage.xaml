@@ -4,9 +4,26 @@
              x:Class="App3.CategoryPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Категории" FontSize="45" FontAttributes="Bold" TextColor="#4D2DB7" Margin="10"/>
+            <StackLayout Orientation="Horizontal">
+                <Button Clicked="Back" Text="Назад" Margin="10, 10, 100, 10" BackgroundColor="#AED2FF"  TextColor="#000"/>
+                <Button Clicked="AddCategorie" Text="Добавить категорию" Margin="10, 10, 100, 10" BackgroundColor="#AED2FF" TextColor="#000"/>
+            </StackLayout>
+            <CollectionView ItemsSource="{Binding CategoriesList}" SelectedItem="{Binding SelectedCaterorie}" SelectionMode="Single" Margin="10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Vertical" WidthRequest="200" Margin="10">
+                            <Label Text="{Binding Title}" WidthRequest="200" FontSize="30" FontAttributes="Bold" HeightRequest="50" TextColor="#4D2DB7" />
+                            <StackLayout Orientation="Horizontal">
+                                <Button Clicked="Edit" Text="Изменить"  CornerRadius="5" BackgroundColor="Transparent" BorderColor="#AED2FF" BorderWidth="2"/>
+                                <Button Clicked="Delete" Text="Удалить"  CornerRadius="5" BackgroundColor="#AED2FF" />
+                            </StackLayout>
+
+
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

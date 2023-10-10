@@ -4,11 +4,19 @@
              xmlns:local="clr-namespace:App3"
              x:Class="App3.MainShell">
 
-    <FlyoutItem Title="MainPage" Icon="xamarin.png">
-       
-            <ShellContent Route="MainPage" Title="gggh"  ContentTemplate="{DataTemplate local:MainPage}"/>
-            
-       
-    </FlyoutItem>
     
+    <FlyoutItem Title="MainPage" Icon="xamarin.png">
+        <ShellContent Route="MainPage"   ContentTemplate="{DataTemplate local:MainPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Category" Icon="xamarin.png">
+        <ShellContent Route="Category"   ContentTemplate="{DataTemplate local:CategoryPage}"/>
+    </FlyoutItem>
+    <MenuItem Clicked="ToRegistration" Text="Выход"/>
+    <TabBar>
+        <ShellContent Route="Registration" ContentTemplate="{DataTemplate local:Registration}"/>
+    </TabBar>
+    <TabBar>
+        <ShellContent Route="Registr" ContentTemplate="{DataTemplate local:RegistrationUser}"/>
+    </TabBar>
+
 </Shell>

@@ -22,7 +22,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Label Text="Shop" FontSize="55" Margin="10" TextColor="#4D2DB7" FontAttributes="Bold" Grid.RowSpan="3"  Grid.ColumnSpan="3"/>
-            <Button Text="Категории" Grid.Column="3" WidthRequest="50" Grid.Row="1" Clicked="OpenCategorirs" Grid.ColumnSpan="3" Background="#AED2FF" BorderWidth="1" BorderColor="#AED2FF" TextColor="#000"/>
+            
             <Button Text="+" Grid.Column="6" WidthRequest="50" Grid.Row="1" Clicked="Add" FontSize="15" Background="#AED2FF"  FontAttributes="Bold" BorderWidth="2" CornerRadius="25" TextColor="#000"/>
         </Grid>
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,7 +16,7 @@ using Xamarin.Forms.Xaml;
 namespace App3
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    [QueryProperty(nameof(Id), "iddd")]
+    [QueryProperty(nameof(Id_), "id")]
     public partial class EditProductPage : ContentPage, INotifyPropertyChanged
     {
         private Product selected;
@@ -25,11 +26,20 @@ namespace App3
         private string photoPath;
 
         private List<Product> listProducts;
-        private  int id;
+        private int id_;
 
-        public  int Id { get => id; set => id = value; } 
+        public int Id_
+        {
+            get => id_;
+            set {
+                id_ = value;
+                GetSelected();
+            }
+
+
+        }
         public List<Category> ListCatigories { get => listCatigories; set { listCatigories = value; Signal(); } }
-        public List<Product> ListProducts { get => listProducts; set => listProducts = value; }
+        public List<Product> ListProducts { get => listProducts; set { listProducts = value; Signal(); } }
         public Category SelectedCategory { get => selectedCategory; set { selectedCategory = value; Signal(); } }
         public Product Selected { get => selected; set { selected = value; Signal(); } }
         public int Index { get => index; set { index = value; Signal(); } }
@@ -40,19 +50,25 @@ namespace App3
         {
             InitializeComponent();
             BindingContext = this;
-            //ListCatigories = DB.GetInstance().GetCategoryList().Result;
-            //ListProducts = DB.GetInstance().GetProductList().Result;
-            //if (Id == 0)
-            //    Selected = new Product();
-            //else
-            //    Selected = ListProducts.FirstOrDefault(s => s.Id == Id);
 
-            //PhotoPath = Selected.PathImage;
-            //SelectedCategory = SelectedProduct.Category;
+            ListCatigories = DB.GetInstance().GetCategoryList().Result;
+            ListProducts = DB.GetInstance().GetProductList().Result;
 
-            //if (SelectedCategory != null)
-            //    picker.SelectedIndex = ListCatigories.IndexOf(ListCatigories.FirstOrDefault(s => s.Id == SelectedCategory.Id));
-       }
+        }
+        public void GetSelected()
+        {
+            if(Id_ != 0)
+                Selected = DB.GetInstance().GetProductList().Result.FirstOrDefault(s => s.Id == Id_);   
+            else 
+                Selected = new Product();
+
+            SelectedCategory = Selected.Category;
+            PhotoPath = Selected.PathImage;
+
+            if (SelectedCategory != null)
+                picker.SelectedIndex = ListCatigories.IndexOf(ListCatigories.FirstOrDefault(s => s.Id == SelectedCategory.Id));
+        }
+       
         public event PropertyChangedEventHandler PropertyChanged;
         void Signal([CallerMemberName] string prop = null)
         {
@@ -62,15 +78,17 @@ namespace App3
         private void Save(object sender, EventArgs e)
         {
             Selected.PathImage = PhotoPath;
-            if (Selected.Id != 0)
+
+            if (Id_ != 0)
             {
+                
                 DB.GetInstance().EditProduct(Selected, SelectedCategory);
             }
 
             else
             {
                 List<Product> products = DB.GetInstance().GetProductList().Result;
-                if (products.Count != 0)
+                if (products!= null && products.Count != 0)
                 {
                     Product product = products.Last();
 
@@ -86,7 +104,7 @@ namespace App3
 
         private async void Back(object sender, EventArgs e)
         {
-            await App.Current.MainPage.Navigation.PushModalAsync(new MainPage());
+            await Shell.Current.GoToAsync("//MainPage");
         }
 
         private async void Photo(object sender, EventArgs e)

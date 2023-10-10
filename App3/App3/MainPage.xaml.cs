@@ -14,10 +14,7 @@ namespace App3
     {
         private List<Product> productList;
         private Product selectedProduct;
-        private List<Category> categories1;
-
-        List<Category> categories { get => categories1; set { categories1 = value; Signal(); } }
-        Category category;
+        
         public List<Product> ProductList { get => productList; set { productList = value; Signal(); } }
         public Product SelectedProduct { get => selectedProduct; set { selectedProduct = value; Signal(); } }
         
@@ -27,8 +24,9 @@ namespace App3
             BindingContext = this;
 
             ProductList = DB.GetInstance().GetProductList().Result;
-            Routing.RegisterRoute("EditProductPage", typeof(EditProductPage));
             Routing.RegisterRoute("Edit", typeof(EditProductPage));
+
+            
         }
 
 
@@ -39,14 +37,14 @@ namespace App3
         }
         private async void Edit(object sender, EventArgs e)
         {
-            //if (SelectedProduct != null && SelectedProduct.Id != null)
-             //   await App.Current.MainPage.Navigation.PushModalAsync(new ProductPage(SelectedProduct));
+            if (SelectedProduct != null && SelectedProduct.Id != null)
+                await Shell.Current.GoToAsync($"Edit?id={SelectedProduct.Id}");
 
         }
 
         private async void Add(object sender, EventArgs e)
         {
-              await Shell.Current.GoToAsync($"Edit?iddd={7}");
+              await Shell.Current.GoToAsync($"Edit?id=0");
               //  await Shell.Current.GoToAsync("EditProductPage");
         }
 

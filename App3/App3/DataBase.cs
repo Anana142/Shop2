@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Xamarin.Forms.Internals;
 using System.Linq;
 using System.Threading.Tasks;
+using App3;
 
 namespace Shop
 {
@@ -41,12 +42,23 @@ namespace Shop
             }
 
         };
+        List<User> users = new List<User>()
+        {
+            new User()
+            {
+                Login = "1",
+                Password = "1",
+
+            }
+        };
 
         string json;
         string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         string folderPath2 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        string folderPath3 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         string fileName = "FunShopProductsList.json";
         string fileName2 = "FunShopCategory.json";
+        string fileName3 = "Users.json";
 
         public async Task<List<Product>> GetProductList()
         {
@@ -62,6 +74,15 @@ namespace Shop
 
             return categories;
         }
+        public async Task<List<User>> GetUsersList()
+        {
+
+            json = File.ReadAllText(Path.Combine(folderPath3, fileName3));
+            users = JsonConvert.DeserializeObject<List<User>>(json);
+
+            return users;
+        }
+
 
         public async void EditProduct(Product product, Category SelectedCategory)
         {
@@ -119,6 +140,7 @@ namespace Shop
             }
 
         }
+
         public async void AddProduct(Product product, Category SelectedCategory) 
         {
             if (product.Title != null && product.Title != "")
@@ -126,6 +148,9 @@ namespace Shop
                 products = GetProductList().Result;
                 if (SelectedCategory != null && SelectedCategory.Id != 0)
                     product.Category = SelectedCategory;
+
+                if(products == null)
+                    products = new List<Product>(); 
                 products.Add(product);
 
                 json = JsonConvert.SerializeObject(products);
@@ -159,6 +184,30 @@ namespace Shop
             }
 
         }
+        public void AddUser(string login, string password)
+        {
+           if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(login))
+            {
+                users = GetUsersList().Result;
+                users.Add(new User() { Login = login, Password = password });
+
+                json = JsonConvert.SerializeObject(users);
+                if (String.IsNullOrEmpty(fileName3))
+                    return;
+
+                if (File.Exists(Path.Combine(folderPath3, fileName3)))
+                {
+                    File.WriteAllText(Path.Combine(folderPath3, fileName3), json);
+                }
+                else
+                {
+                    File.Create(Path.Combine(folderPath3, fileName3));
+                }
+
+
+            }
+        }
+
         public async void DeleteProduct(Product product) 
         {
             products = GetProductList().Result;
@@ -183,7 +232,6 @@ namespace Shop
             }
 
         }
-
         public async void DeleteCategory(Category category)
         {
             categories = GetCategoryList().Result;
@@ -239,7 +287,23 @@ namespace Shop
                 File.Create(Path.Combine(folderPath2, fileName2));
             }
         }
+        public void u()
+        {
+            json = JsonConvert.SerializeObject(users);
+            if (String.IsNullOrEmpty(fileName3))
+                return;
 
+            if (File.Exists(Path.Combine(folderPath3, fileName3)))
+            {
+                File.WriteAllText(Path.Combine(folderPath3, fileName3), json);
+            }
+            else
+            {
+                File.Create(Path.Combine(folderPath3, fileName3));
+            }
+        }
+
+        
     }
 
 }
