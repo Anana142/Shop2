@@ -38,6 +38,8 @@ namespace App3
             DB.GetInstance().AddUser(Login, Password);
             await DisplayAlert("Сообщение", "Вы зарегистрированы", "Ок");
             await Shell.Current.GoToAsync("//Registration");
+            Login = null;
+            Password = null;    
         }
     }
 }

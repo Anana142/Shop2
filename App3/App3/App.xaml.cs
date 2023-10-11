@@ -11,7 +11,7 @@ namespace App3
             InitializeComponent();
 
             MainPage = new  MainShell();
-         // MainPage = new Registration();
+            // MainPage = new Registration();
         }
 
         protected override void OnStart()

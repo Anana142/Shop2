@@ -39,7 +39,7 @@ namespace App3
             {
                 if (DB.GetInstance().GetUsersList().Result.FirstOrDefault(s => s.Login == Login && s.Password == Password) != null)
                 {
-                    await Shell.Current.GoToAsync("//MainPage");
+                    await Shell.Current.GoToAsync("//MainPage?update=True");
                     Login = null;
                     Password = null;
                 }
@@ -61,6 +61,8 @@ namespace App3
         private async void Registr(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//Registr");
+            Login = null;
+            Password = null;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace App3
         }
         private async void Back(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//Category");
+            await Shell.Current.GoToAsync("//Category?update=true");
         }
 
         private void Save(object sender, EventArgs e)

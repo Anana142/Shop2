@@ -104,7 +104,7 @@ namespace App3
 
         private async void Back(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//MainPage");
+            await Shell.Current.GoToAsync("//MainPage?update=True");
         }
 
         private async void Photo(object sender, EventArgs e)

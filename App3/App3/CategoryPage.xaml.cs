@@ -13,11 +13,17 @@ using Xamarin.Forms.Xaml;
 namespace App3
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    [QueryProperty(nameof(Update), "update")]
     public partial class CategoryPage : ContentPage, INotifyPropertyChanged
     {
         private List<Category> categoriesList;
         private Category selectedCaterorie;
+        private string update;
 
+        public string Update { get => update; set { update = value;
+                CategoriesList = DB.GetInstance().GetCategoryList().Result;
+                Signal();
+            } }
         public List<Category> CategoriesList { get => categoriesList; set { categoriesList = value; Signal(); } }
         public Category SelectedCaterorie { get => selectedCaterorie; set { selectedCaterorie = value; Signal(); } }
         public CategoryPage()
@@ -52,9 +58,6 @@ namespace App3
             await Shell.Current.GoToAsync($"EditCategory?id=0");
         }
 
-        private void Back(object sender, EventArgs e)
-        {
-            App.Current.MainPage.Navigation.PushModalAsync(new MainPage());
-        }
+      
     }
 }

@@ -7,17 +7,30 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace App3
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    [QueryProperty(nameof(Update), "update")]
     public partial class MainPage : ContentPage, INotifyPropertyChanged
     {
         private List<Product> productList;
         private Product selectedProduct;
-        
+        private string update;
+
+        public string Update
+        {
+            get => update; set
+            {
+                update = value;
+                ProductList = DB.GetInstance().GetProductList().Result;
+                Signal();
+            }
+        }
         public List<Product> ProductList { get => productList; set { productList = value; Signal(); } }
         public Product SelectedProduct { get => selectedProduct; set { selectedProduct = value; Signal(); } }
-        
+
         public MainPage()
         {
             InitializeComponent();
@@ -26,7 +39,7 @@ namespace App3
             ProductList = DB.GetInstance().GetProductList().Result;
             Routing.RegisterRoute("Edit", typeof(EditProductPage));
 
-            
+
         }
 
 
@@ -44,8 +57,8 @@ namespace App3
 
         private async void Add(object sender, EventArgs e)
         {
-              await Shell.Current.GoToAsync($"Edit?id=0");
-              //  await Shell.Current.GoToAsync("EditProductPage");
+            await Shell.Current.GoToAsync($"Edit?id=0");
+            //  await Shell.Current.GoToAsync("EditProductPage");
         }
 
         private void Delete(object sender, EventArgs e)
@@ -59,7 +72,7 @@ namespace App3
 
         private async void OpenCategorirs(object sender, EventArgs e)
         {
-           // await App.Current.MainPage.Navigation.PushModalAsync(new CatigoriesPage());
+            // await App.Current.MainPage.Navigation.PushModalAsync(new CatigoriesPage());
         }
     }
 }

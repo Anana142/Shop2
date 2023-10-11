@@ -6,7 +6,7 @@
         <StackLayout>
             <Label Text="Категории" FontSize="45" FontAttributes="Bold" TextColor="#4D2DB7" Margin="10"/>
             <StackLayout Orientation="Horizontal">
-                <Button Clicked="Back" Text="Назад" Margin="10, 10, 100, 10" BackgroundColor="#AED2FF"  TextColor="#000"/>
+                
                 <Button Clicked="AddCategorie" Text="Добавить категорию" Margin="10, 10, 100, 10" BackgroundColor="#AED2FF" TextColor="#000"/>
             </StackLayout>
             <CollectionView ItemsSource="{Binding CategoriesList}" SelectedItem="{Binding SelectedCaterorie}" SelectionMode="Single" Margin="10">
